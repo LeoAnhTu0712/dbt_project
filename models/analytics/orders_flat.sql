@@ -11,7 +11,6 @@ select
         o.channel,
         o.order_id as booking_id,
         ifnull(dispatch_group_id,o.order_id) as group_booking_id,
-        case when coalesce(u.unique_order_id,o.order_id) = o.order_id then 1 else 0 end as is_unique,
         o.customer_id as phone_number, 
         o.gmv,
         o.discount,
@@ -31,5 +30,4 @@ select
         is_schedule_order,
         is_allocated
         from `bustling-bot-508302-n4.gold.orders` o
-        left join `bustling-bot-508302-n4.gold.order_unique` u on o.order_id = u.order_id
         where date(o.order_time_local_tz) <= current_date('Asia/Kolkata') - 1
